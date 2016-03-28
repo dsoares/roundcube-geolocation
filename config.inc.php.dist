@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Geolocation configuration file.
+ */
+
+// fetch method
+// system - fetch geolocation information using local system GeoIP tools.
+// geoplugin - fetch geolocation information from http://www.geoplugin.net
+// geoiptool - fetch geolocation information from https://www.geoiptool.com
+$config['geolocation_fetch_method'] = 'system';
+
+// Define your organization internal networks.
+// IPs from these networks will not be asked about geolocation info.
+$config['geolocation_internal_networks'] = array(
+    '10.0.32.0/20'      => 'FCUP - Botanico',
+    '10.0.0.0/16'       => 'Organization internal',
+    '193.137.151.0/24'  => 'Eduroam externos',
+    '172.17.0.0/20'     => 'Eduroam',
+    '193.194.1.0/24'    => 'My Organization'
+);
