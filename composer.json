@@ -3,7 +3,7 @@
     "type": "roundcube-plugin",
     "description": "Roundcube plugin to provide geolocation utilities.",
     "keywords": ["mail","geo"],
-    "homepage": "https://github.com/dsoares/Roundcube-Plugin-Geolocation/",
+    "homepage": "https://github.com/dsoares/Roundcube-Plugin-Geolocation",
     "license": "GPLv3+",
     "authors": [
         {
