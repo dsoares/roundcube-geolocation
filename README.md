@@ -9,6 +9,10 @@ This plugin is not meant to be configured by users, only by the Roundcube Webmai
 
 Stable versions of Geolocation are available from the [Roundcube plugin repository][rcplugrepo] (for 1.0 and above) or the [releases section][releases] of the GitHub repository.
 
+**NOTE:** *This plugins only provides geolocation functions to be used by other plugins.*
+
+**WHY:** I have written other Roundcube plugins to use within my organization. Some of them were using geolocation functions with duplicated configs, so i thought of moving them into a plugin, with centralized config. For now, the only published plugin that uses the geolocation plugin is a very small one: [Blacklist][blacklist]. I plan to release another plugin that shows the login info for the user, with history and all. It's already in production in my organization (i use that info for my anti-spam toolbox), i just have to rewrite some bits of it before publishing.
+
 
 Requirements
 ------------
@@ -58,7 +62,8 @@ Comments and suggestions are welcome!
 Email: [Diana Soares][dsoares]
 
 [rcplugrepo]: http://plugins.roundcube.net/packages/dsoares/geolocation
-[releases]: http://github.com/JohnDoh/Roundcube-Plugin-Geolocation/releases
+[releases]: http://github.com/dsoares/Roundcube-Plugin-Geolocation/releases
 [phpgeoip]: http://php.net/manual/en/book.geoip.php
 [gpl]: http://www.gnu.org/licenses/gpl.html
 [dsoares]: mailto:diana.soares@gmail.com
+[blacklist]: https://github.com/dsoares/Roundcube-Plugin-Blacklist
