@@ -4,6 +4,7 @@
  *
  * Roundcube plugin to provide geolocation utilities.
  *
+ * @version 0.1.0
  * @author Diana Soares
  * @requires php-geoip
  *
@@ -56,7 +57,8 @@ class geolocation extends rcube_plugin
     public function get_geolocation($ip)
     {
         $geo = $this->cache_load($ip);
-
+        $ip = "2a01:e35:8bd9:8bb0:92b:8628:5ca5:5f2b";
+        
         if (!$geo) {
             $geo = self::get_internal_info($ip);
 
@@ -146,12 +148,61 @@ class geolocation extends rcube_plugin
     }
 
     /**
-     * Check network match.
+     * Checks if an IPv4 or IPv6 address is contained in the given CIDR.
      */
-    private static function net_match($cidr, $ip)
+    public static function net_match($cidr, $ip)
     {
-        list($net, $mask) = explode('/', $cidr);
-        return (ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($net);
+        if (substr_count($ip, ':') > 1) {
+            $method = 'net_match_ipv6';
+            $bits = 128;
+        } else {
+            $method = 'net_match_ipv4';
+            $bits = 32;
+        }
+
+        if (strpos($cidr, '/') !== false) {
+            list($net, $mask) = explode('/', $cidr, 2);
+            if ($mask <= 0 || $mask > $bits) {
+                return false;
+            }
+        } else {
+            $net  = $cidr;
+            $mask = $bits;
+        }
+
+        return self::$method($ip, $net, $mask);
+    }
+
+    /**
+     * Checks if the given IPv4 address is part of the subnet.
+     */
+    private static function net_match_ipv4($ip, $net, $mask)
+    {
+        return (ip2long($ip) & ~((1 << (32 - $mask)) - 1)) === ip2long($net);
+    }
+
+    /**
+     * Checks if the given IPv6 address is part of the subnet.
+     *
+     * @author David Soria Parra <dsp at php dot net>
+     * @see https://github.com/dsp/v6tools
+     */
+    private static function net_match_ipv6($ip, $net, $mask)
+    {
+        $bytes_addr = unpack('n*', @inet_pton($net));
+        $bytes_test = unpack('n*', @inet_pton($ip));
+        if (!$bytes_addr || !$bytes_test) {
+            return false;
+        }
+        for ($i = 1, $ceil = ceil($mask / 16); $i <= $ceil; ++$i) {
+            $left = $mask - 16 * ($i - 1);
+            $left = ($left <= 16) ? $left : 16;
+            $mask = ~(0xffff >> $left) & 0xffff;
+            if (($bytes_addr[$i] & $mask) != ($bytes_test[$i] & $mask)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
