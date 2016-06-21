@@ -4,7 +4,7 @@
  *
  * Roundcube plugin to provide geolocation utilities.
  *
- * @version 0.1.0
+ * @version 0.1.2
  * @author Diana Soares
  * @requires php-geoip
  *
@@ -57,7 +57,6 @@ class geolocation extends rcube_plugin
     public function get_geolocation($ip)
     {
         $geo = $this->cache_load($ip);
-        $ip = "2a01:e35:8bd9:8bb0:92b:8628:5ca5:5f2b";
         
         if (!$geo) {
             $geo = self::get_internal_info($ip);

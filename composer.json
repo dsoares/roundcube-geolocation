@@ -5,6 +5,7 @@
     "keywords": ["mail","geo"],
     "homepage": "https://github.com/dsoares/Roundcube-Plugin-Geolocation",
     "license": "GPL-3.0+",
+    "version": "0.1.2",
     "authors": [
         {
             "name": "Diana Soares",
