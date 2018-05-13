@@ -63,4 +63,4 @@ Email: [Diana Soares][dsoares]
 [phpgeoip]: https://php.net/manual/en/book.geoip.php
 [gpl]: https://www.gnu.org/licenses/gpl.html
 [dsoares]: mailto:diana.soares@gmail.com
-[blacklist]: https://github.com/dsoares/roundcube-blacklist
+[blacklist]: https://plugins.roundcube.net/packages/dsoares/blacklist
