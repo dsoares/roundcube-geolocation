@@ -8,7 +8,7 @@
  * @author Diana Soares
  * @requires php-geoip
  *
- * Copyright (C) 2016 Diana Soares
+ * Copyright (C) Diana Soares
  *
  * This program is a Roundcube (http://www.roundcube.net) plugin.
  * For more information see README.md.
@@ -57,7 +57,7 @@ class geolocation extends rcube_plugin
     public function get_geolocation($ip)
     {
         $geo = $this->cache_load($ip);
-        
+
         if (!$geo) {
             $geo = self::get_internal_info($ip);
 
