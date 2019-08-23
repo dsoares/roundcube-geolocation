@@ -113,6 +113,21 @@ class geolocation extends rcube_plugin
             }
             break;
 
+	case 'maxminddb':
+	    $geo = array('city' => 'unknown', 'region'  => 'unknown','country' => '??');
+	    if (extension_loaded('maxminddb')) {
+        	$rcmail = rcube::get_instance();
+		$db_location = $rcmail->config->get('geolocation_db', '/usr/share/GeoIP/GeoLite2-City.mmdb');
+		if(!$db_location) break;
+		$reader = new \MaxMind\Db\Reader($db_location);
+		if(!$reader) break;
+		$rd = $reader->get($ip);
+		if(!$rd) break;
+		$geo = array(
+			'city' => utf8_encode($rd['city']['names']['en']),
+			'country' => utf8_encode($rd['country']['names']['en']));
+	    }
+	    break;
         case 'system':
         default:
             // using system database
